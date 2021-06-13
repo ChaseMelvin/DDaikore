@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDaikore", "DDaikore.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDaikontin", "DDaikontin\DDaikontin.csproj", "{469B9521-19A6-413F-A255-7309FE846510}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divine Jade Dragon Valley", "..\Divine Jade Dragon Valley\Divine Jade Dragon Valley.csproj", "{9B738285-11B6-4435-8304-407568FCCAD2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Divine Jade Dragon Valley", "Divine Jade Dragon Valley\Divine Jade Dragon Valley.csproj", "{9B738285-11B6-4435-8304-407568FCCAD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
