@@ -12,7 +12,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.All(p => p.Evaluate(context));
         }
-        public List<Condition<bool>> Children;
+        public List<Condition<bool>> Children = new();
     }
 
     public class ConditionOr : Condition<bool>
@@ -21,7 +21,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.Any(p => p.Evaluate(context));
         }
-        public List<Condition<bool>> Children;
+        public List<Condition<bool>> Children = new();
     }
 
     public class ConditionNot : Condition<bool>

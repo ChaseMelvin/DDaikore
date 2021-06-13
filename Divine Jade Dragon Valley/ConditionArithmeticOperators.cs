@@ -15,7 +15,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.Sum(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children;
+        public List<Condition<double>> Children = new();
     }
 
     public class ConditionMultiply : Condition<double>
@@ -24,7 +24,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.Select(p => p.Evaluate(context)).Aggregate(1.0, (cur, product) => cur * product);
         }
-        public List<Condition<double>> Children;
+        public List<Condition<double>> Children = new();
     }
 
     public class ConditionDivide : Condition<double>
@@ -99,7 +99,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.Min(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children;
+        public List<Condition<double>> Children = new();
     }
 
     /// <summary>
@@ -111,6 +111,6 @@ namespace Divine_Jade_Dragon_Valley
         {
             return Children.Max(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children;
+        public List<Condition<double>> Children = new();
     }
 }
