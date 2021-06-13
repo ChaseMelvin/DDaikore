@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>Divine_Jade_Dragon_Valley</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
+    <Authors>Tourk and DeProgrammer</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DDaikore\DDaikore.csproj" />
+    <ProjectReference Include="..\DDaikore.csproj" />
   </ItemGroup>
 
 </Project>
