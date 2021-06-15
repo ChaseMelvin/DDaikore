@@ -68,7 +68,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             if (delta < 0)
             {
-                if (X + delta < 0 || collisionMap[(int)(X + delta), (int)(y)] == 1)
+                if (X + delta < 0 || collisionMap[(int)y, (int)(X + delta)] == 1)
                 {
                     X = (int)X;
                     return false;
@@ -76,13 +76,13 @@ namespace Divine_Jade_Dragon_Valley
             }
             else
             {
-                if ((int)(X + delta + Width) >= collisionMap.GetLength(0))
+                if ((int)(X + delta + Width) >= collisionMap.GetLength(1))
                 {
-                    X = collisionMap.GetLength(0) - Width;
+                    X = collisionMap.GetLength(1) - Width;
                     return false;
                 }
 
-                if (collisionMap[(int)(X + delta + Width), (int)(y)] == 1)
+                if (collisionMap[(int)y, (int)(X + delta + Width)] == 1)
                 {
                     X = (int)(X + delta + Width) - Width;
                     return false;
@@ -96,7 +96,7 @@ namespace Divine_Jade_Dragon_Valley
         {
             if (delta < 0)
             {
-                if (Y + delta < 0 || collisionMap[(int)(x), (int)(Y + delta)] == 1)
+                if (Y + delta < 0 || collisionMap[(int)(Y + delta), (int)x] == 1)
                 {
                     Y = (int)Y;
                     return false;
@@ -104,13 +104,13 @@ namespace Divine_Jade_Dragon_Valley
             }
             else
             {
-                if ((int)(Y + delta + Height) >= collisionMap.GetLength(1))
+                if ((int)(Y + delta + Height) >= collisionMap.GetLength(0))
                 {
-                    Y = collisionMap.GetLength(1) - Height;
+                    Y = collisionMap.GetLength(0) - Height;
                     return false;
                 }
 
-                if (collisionMap[(int)(x), (int)(Y + delta + Height)] == 1)
+                if (collisionMap[(int)(Y + delta + Height), (int)x] == 1)
                 {
                     Y = (int)(Y + delta + Height) - Height;
                     return false;

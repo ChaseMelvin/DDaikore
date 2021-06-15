@@ -107,14 +107,14 @@ namespace Divine_Jade_Dragon_Valley
 
         private void DrawTilemap(TilemapLayer tilemap)
         {
-            for (int x = 0; x < tilemap.Tiles.GetLength(0); x++)
+            for (int y = 0; y < tilemap.Tiles.GetLength(0); y++)
             {
-                for (int y = 0; y < tilemap.Tiles.GetLength(1); y++)
+                for (int x = 0; x < tilemap.Tiles.GetLength(1); x++)
                 {
-                    if (tilemap.Tiles[x, y] == 0)
+                    if (tilemap.Tiles[y, x] == 0)
                         continue;
 
-                    artist.DrawImage(spriteSheet, new Rectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), (tilemap.Tiles[x, y] - 1) * 65, 0, TILE_SIZE, TILE_SIZE, GraphicsUnit.Pixel);
+                    artist.DrawImage(spriteSheet, new Rectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE), (tilemap.Tiles[y, x] - 1) * 65, 0, TILE_SIZE, TILE_SIZE, GraphicsUnit.Pixel);
                 }
             }
         }
