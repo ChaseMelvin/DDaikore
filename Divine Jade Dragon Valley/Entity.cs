@@ -36,6 +36,8 @@ namespace Divine_Jade_Dragon_Valley
             }
 
             X += delta;
+            //TODO: Check every event that has a condition based on the location of the player
+            GameProcessor.ExecuteEvents(typeof(ConditionCharacterInBox), null, new ConditionContext() { Target = this as Character });
             return true;
         }
 

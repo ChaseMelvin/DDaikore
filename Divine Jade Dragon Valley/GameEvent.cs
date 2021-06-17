@@ -8,11 +8,13 @@ namespace Divine_Jade_Dragon_Valley
 {
     public abstract class GameEvent
     {
-        public readonly Condition<bool> TriggerConditions;
+        public Condition<bool> TriggerConditions;
         /// <summary>
         /// When one event leads to another, you could parent/child relationships instead of a Condition based on the previous event
         /// </summary>
-        public readonly GameEvent Parent;
+        public GameEvent Parent;
         public readonly List<GameEvent> Children = new();
+
+        public abstract void Execute(EventContext eventContext);
     }
 }
