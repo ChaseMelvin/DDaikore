@@ -9,108 +9,93 @@ namespace Divine_Jade_Dragon_Valley
     /// <summary>
     /// Add all the child values. (For subtraction, use Negate with Add)
     /// </summary>
-    public class ConditionAdd : Condition<double>
+    public class ConditionAdd : Condition, ICondition<double>
     {
         public double Evaluate(ConditionContext context)
         {
-            return Children.Sum(p => p.Evaluate(context));
+            return DoubleChildren().Sum(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children = new();
     }
 
-    public class ConditionMultiply : Condition<double>
+    public class ConditionMultiply : Condition, ICondition<double>
     {
         public double Evaluate(ConditionContext context)
         {
-            return Children.Select(p => p.Evaluate(context)).Aggregate(1.0, (cur, product) => cur * product);
+            return DoubleChildren().Select(p => p.Evaluate(context)).Aggregate(1.0, (cur, product) => cur * product);
         }
-        public List<Condition<double>> Children = new();
     }
 
-    public class ConditionDivide : Condition<double>
+    public class ConditionDivide : Condition, ICondition<double>
     {
         public double DefaultIfDividingByZero = double.MaxValue;
         public double Evaluate(ConditionContext context)
         {
-            var divisor = Divisor.Evaluate(context);
+            var divisor = DoubleChildren().First().Evaluate(context);
             if (divisor == 0) return DefaultIfDividingByZero;
-            return Dividend.Evaluate(context) / divisor;
+            return DoubleChildren().Last().Evaluate(context) / divisor;
         }
 
-        /// <summary>
-        /// The number to divide. (The numerator of the fraction.)
-        /// </summary>
-        public Condition<double> Dividend;
-        /// <summary>
-        /// The number to divide by. (The denominator of the fraction.)
-        /// </summary>
-        public Condition<double> Divisor;
+        protected override int GetMaxChildren() => 2;
     }
 
-    public class ConditionLessThan : Condition<bool>
+    public class ConditionLessThan : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return First.Evaluate(context) < Second.Evaluate(context);
+            return DoubleChildren().First().Evaluate(context) < DoubleChildren().Last().Evaluate(context);
         }
 
-        public Condition<double> First;
-        public Condition<double> Second;
+        protected override int GetMaxChildren() => 2;
     }
 
-    public class ConditionGreaterThan : Condition<bool>
+    public class ConditionGreaterThan : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return First.Evaluate(context) > Second.Evaluate(context);
+            return DoubleChildren().First().Evaluate(context) > DoubleChildren().Last().Evaluate(context);
         }
 
-        public Condition<double> First;
-        public Condition<double> Second;
+        protected override int GetMaxChildren() => 2;
     }
 
-    public class ConditionEqual : Condition<bool>
+    public class ConditionEqual : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return First.Evaluate(context) == Second.Evaluate(context);
+            var value = DoubleChildren().First().Evaluate(context);
+            return DoubleChildren().Skip(1).All(p => p.Evaluate(context) == value);
         }
-
-        public Condition<double> First;
-        public Condition<double> Second;
     }
 
-    public class ConditionNegate : Condition<double>
+    public class ConditionNegate : Condition, ICondition<double>
     {
         public double Evaluate(ConditionContext context)
         {
-            return -Child.Evaluate(context);
+            return -DoubleChildren().First().Evaluate(context);
         }
 
-        public Condition<double> Child;
+        protected override int GetMaxChildren() => 1;
     }
 
     /// <summary>
     /// Get the least value
     /// </summary>
-    public class ConditionMin : Condition<double>
+    public class ConditionMin : Condition, ICondition<double>
     {
         public double Evaluate(ConditionContext context)
         {
-            return Children.Min(p => p.Evaluate(context));
+            return DoubleChildren().Min(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children = new();
     }
 
     /// <summary>
     /// Get the greatest value
     /// </summary>
-    public class ConditionMax : Condition<double>
+    public class ConditionMax : Condition, ICondition<double>
     {
         public double Evaluate(ConditionContext context)
         {
-            return Children.Max(p => p.Evaluate(context));
+            return DoubleChildren().Max(p => p.Evaluate(context));
         }
-        public List<Condition<double>> Children = new();
     }
 }

@@ -6,30 +6,34 @@ using System.Threading.Tasks;
 
 namespace Divine_Jade_Dragon_Valley
 {
-    public class ConditionAnd : Condition<bool>
+    public class ConditionAnd : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return Children.All(p => p.Evaluate(context));
+            return BoolChildren().All(p => p.Evaluate(context));
         }
-        public List<Condition<bool>> Children = new();
+
+        protected override Type GetAllowedChildType() => typeof(ICondition<bool>);
     }
 
-    public class ConditionOr : Condition<bool>
+    public class ConditionOr : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return Children.Any(p => p.Evaluate(context));
+            return BoolChildren().Any(p => p.Evaluate(context));
         }
-        public List<Condition<bool>> Children = new();
+
+        protected override Type GetAllowedChildType() => typeof(ICondition<bool>);
     }
 
-    public class ConditionNot : Condition<bool>
+    public class ConditionNot : Condition, ICondition<bool>
     {
         public bool Evaluate(ConditionContext context)
         {
-            return !Child.Evaluate(context);
+            return !BoolChildren().First().Evaluate(context);
         }
-        public Condition<bool> Child;
+
+        protected override Type GetAllowedChildType() => typeof(ICondition<bool>);
+        protected override int GetMaxChildren() => 1;
     }
 }

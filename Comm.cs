@@ -26,6 +26,7 @@ namespace DDaikore
         private bool actedAsListener = false;
         private Thread commThread, commHostThread;
         public Mutex acceptingConnectionMutex = new Mutex(); //When this is locked, the game loop should freeze entirely
+        private bool aborting, commListenAborting;
 
         private byte[] buffer = new byte[1024 * 1024]; //A megabyte buffer? Why not!
 
@@ -94,8 +95,11 @@ namespace DDaikore
         {
             if (commHostThread != null && commHostThread.IsAlive)
             {
-                commHostThread.Abort();
+                //commHostThread.Abort();
+                commListenAborting = true;
                 connection.Close();
+                commHostThread.Join();
+                commListenAborting = false;
                 commHostThread = null;
             }
         }
@@ -128,7 +132,7 @@ namespace DDaikore
             connection.Listen(1);
             actedAsListener = true;
 
-            while (true)
+            while (!commListenAborting)
             {
                 Socket client;
                 try
@@ -231,7 +235,7 @@ namespace DDaikore
 
         private void RunComms()
         {
-            while (true)
+            while (!aborting)
             {
                 //Have to lock this around references to connection
                 lock (this) //TODO: Rethink. Is there a clean way to do it?
@@ -288,10 +292,12 @@ namespace DDaikore
 
         public void Abort()
         {
-            commThread.Abort();
+            //commThread.Abort(); //Good ol' .NET Core doesn't support Thread.Abort
+            aborting = true;
             if (commHostThread != null && commHostThread.IsAlive)
             {
-                commHostThread.Abort();
+                commListenAborting = true;
+                //commHostThread.Abort();
                 commHostThread.Join();
             }
             commThread.Join();

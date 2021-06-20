@@ -36,8 +36,7 @@ namespace Divine_Jade_Dragon_Valley
             }
 
             X += delta;
-            //TODO: Check every event that has a condition based on the location of the player
-            GameProcessor.ExecuteEvents(typeof(ConditionCharacterInBox), null, new ConditionContext() { Target = this as Character });
+            AfterMove();
             return true;
         }
 
@@ -63,7 +62,17 @@ namespace Divine_Jade_Dragon_Valley
             }
 
             Y += delta;
+            AfterMove();
             return true;
+        }
+
+        protected void AfterMove()
+        {
+            //Check every event that has a condition based on the location of the player
+            var eventContext = new EventContext();
+            var conditionContext = new ConditionContext { Caster = this as Character };
+            GameProcessor.ExecuteEvents(typeof(ConditionCharacterInBox), eventContext, conditionContext);
+            GameProcessor.ExecuteEvents(typeof(ConditionCharacterTouchingBox), eventContext, conditionContext);
         }
 
         protected bool CheckCollisionX(float delta, byte[,] collisionMap, float y)

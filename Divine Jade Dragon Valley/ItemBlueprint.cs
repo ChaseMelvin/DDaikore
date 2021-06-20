@@ -8,7 +8,7 @@ namespace Divine_Jade_Dragon_Valley
 {
     public class ItemBlueprint
     {
-        public Condition<bool> SpawnConditions;
+        public ICondition<bool> SpawnConditions;
         public readonly Dictionary<string, double> StatRandomMinima = new();
         public readonly Dictionary<string, double> StatRandomMaxima = new();
         public readonly Dictionary<string, double> StatAdditionChances = new();

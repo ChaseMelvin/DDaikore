@@ -14,9 +14,13 @@ namespace Divine_Jade_Dragon_Valley
 
         public override void Execute(EventContext eventContext)
         {
-            GameProcessor.currentArea = TargetArea;
-            GameProcessor.currentPlayer.X = TargetX;
-            GameProcessor.currentPlayer.Y = TargetY;
+            if (eventContext.EndOfFrame)
+            {
+                GameProcessor.ChangeArea(TargetArea ?? GameProcessor.currentArea);
+                GameProcessor.currentPlayer.X = TargetX;
+                GameProcessor.currentPlayer.Y = TargetY;
+            }
+            else GameProcessor.UnconditionalRunAtEndOfFrame.Add(this); //Delay until the end of the frame because this event can cause the event list to change.
         }
         //TODO: Transition types such as fade out or scrolling up/down
     }

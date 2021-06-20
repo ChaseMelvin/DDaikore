@@ -10,5 +10,10 @@ namespace Divine_Jade_Dragon_Valley
     {
         public List<Character> Characters;
         public int TurnNumber;
+
+        public override void Execute(EventContext eventContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

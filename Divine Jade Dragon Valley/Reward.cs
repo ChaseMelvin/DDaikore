@@ -11,5 +11,10 @@ namespace Divine_Jade_Dragon_Valley
         public readonly ItemBlueprint ItemToGrant;
         public readonly Dictionary<string, double> MaxStatsToGrant = new();
         public readonly Dictionary<string, double> StatsToGrant = new();
+
+        public override void Execute(EventContext eventContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

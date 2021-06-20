@@ -10,5 +10,10 @@ namespace Divine_Jade_Dragon_Valley
     {
         public readonly string Text;
         public readonly List<string> Choices = new();
+
+        public override void Execute(EventContext eventContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

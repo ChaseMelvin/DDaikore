@@ -20,5 +20,15 @@ namespace Divine_Jade_Dragon_Valley
         {
             Current, Max
         }
+
+        /// <summary>
+        /// Information about how a plot is meant to be used. Several can apply to one plot.
+        /// </summary>
+        [Flags]
+        public enum PlotDesignation
+        {
+            Hub, Road, Bazaar, Sect, Residence, Ruins, Decoration,
+            Common, Uncommon, Rare //Might not want these; probably want actual spawn probabilities instead.
+        }
     }
 }
